@@ -1,6 +1,6 @@
 # meta-taxallnomy-to-krona
 
-Para executar o  teste, basta realizar a execução com base nas duas abordagens:
+Para executar o  teste, basta realizaro download dos arquivos "metakaiju_taxallnomy_to_krona" e o exemplo de saída "kaiju.out" e o arquivo final será gerado com o nome "input_kaiju_krona". E a execução poderá ser feita com base nas duas abordagens:
 
 ## Análise Remota (acessa o taxallnomy através do link de resultados tabular)
 
