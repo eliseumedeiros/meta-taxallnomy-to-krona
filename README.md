@@ -2,11 +2,11 @@
 
 Para executar o  teste, basta realizar a execução com base nas duas abordagens:
 
-Análise Remota (acessa o taxallnomy através do link de resultados tabular)
+## Análise Remota (acessa o taxallnomy através do link de resultados tabular)
 
   <h4>python kaiju_taxallnomy-to-krona.py --file kaiju.out</h4>
 
-Análise Local
+## Análise Local
 
   <h4>python kaiju_taxallnomy-to-krona.py --file kaiju.out -t l</h4>
     Forneça as ingotmações necessárias (login e senha do banco do taxallnomy)
