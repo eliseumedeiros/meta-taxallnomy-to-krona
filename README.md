@@ -8,7 +8,7 @@ Para executar o  teste, basta realizar o download dos arquivos "metakaiju_taxall
 
 ### Análise Local
 
-  <h4>python metakaiju_taxallnomy-to-krona.py --file kaiju.out --type l --txmy %caminho_do_arquivo: get_lineage.pl%</h4>
+  <h4>python metakaiju_taxallnomy-to-krona.py --file kaiju.out --type l -txmy %caminho_do_arquivo: get_lineage.pl%</h4>
     Forneça as informações necessárias (login e senha do banco do taxallnomy)
   
   
