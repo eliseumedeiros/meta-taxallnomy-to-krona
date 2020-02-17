@@ -5,9 +5,6 @@ import getpass
 #download site
 import urllib.request
 
-#NO PANDAS
-import collections
-
 path_input_file = ''
 path_txmy = '/home/eliseu/Downloads/taxallnomy-master/get_lineage.pl'
 analysis_type = 'r' #remote analysis is the defalt
@@ -37,10 +34,12 @@ def local_analysis():
 	#separate IDs from the original metagenomic file
 	read_file = open(path_input_file, 'r')
 	ids = []
+	ids_count = {}
 	for line in read_file:
 		id = line.split("\t")[2].replace("\n", "")
 		if(id.isdigit()):
 			ids.append(id)
+			ids_count[id] = ids_count.get(id, 0) + 1
 	read_file.close()
 	#save unique IDs file
 	unique_ids = set(ids)
@@ -53,7 +52,7 @@ def local_analysis():
 	user_database = input("Provide Mysql user from Taxallnomy database: ")
 	password = getpass.getpass("Password: ")
 
-	#execute command on Terminal
+	#execute command on Terminalids_countids_count
 	command = "perl " + path_txmy + " -file ids_to_taxallnomy -out output_kaiju_taxallnomy -user "+ user_database 
 	child = pexpect.spawn(command)
 	child.sendline (password)
@@ -61,12 +60,11 @@ def local_analysis():
 	#add count of IDs with taxonomic description in Krona input format
 	tax_out = open('taxallnomy_analysis.out', 'r')
 	final_result_krona = open('final_tax_input_krona', 'w+')
-	id_counts = collections.Counter(ids)
 	tax_out.readline() #file comment line
 	tax_out.readline() #file comment line
 	for line in tax_out:
 		aux = line.split('\t')
-		f_line = str(id_counts[aux[0]]) + line[len(aux[0])::]
+		f_line = str(ids_count[aux[0]]) + line[len(aux[0])::]
 		final_result_krona.write(f_line)
 	final_result_krona.close()
 
@@ -83,12 +81,13 @@ def remote_analysis():
 	#separate IDs from the original metagenomic file
 	read_file = open(path_input_file, 'r')
 	ids = []
+	ids_count = {}
 	for line in read_file:
 		id = line.split("\t")[2].replace("\n", "")
 		if(id.isdigit()):
 			ids.append(id)
+			ids_count[id] = ids_count.get(id, 0) + 1
 	read_file.close()
-	
 	#gerar link
 	beginning_link = "http://bioinfo.icb.ufmg.br/cgi-bin/taxallnomy/taxallnomy_multi.pl?txid="
 	end_link = "&rank=main&format=tab"
@@ -108,12 +107,11 @@ def remote_analysis():
 	#read the taxallnomy generated table
 	tax_out = open('taxallnomy_analysis.out', 'r')
 	final_result_krona = open('final_tax_input_krona', 'w+')
-	id_counts = collections.Counter(ids)
 	tax_out.readline() #file comment line
 	tax_out.readline() #file comment line
 	for line in tax_out:
 		aux = line.split('\t')
-		f_line = str(id_counts[aux[0]]) + line[len(aux[0])::]
+		f_line = str(ids_count[aux[0]]) + line[len(aux[0])::]
 		final_result_krona.write(f_line)
 	final_result_krona.close()
 
